@@ -3,6 +3,7 @@ job("Jenkins-test") {
         git("https://github.com/Ishaan1604/Jenkins-test.git") { node -> 
             node / gitConfigName("DSL User")
             node /gitConfigEmail("jenkins-dsl@newtech.academy")
+            node / branch("main")
         }
     }
     triggers {
@@ -14,7 +15,6 @@ job("Jenkins-test") {
     steps {
         dockerBuildAndPublish {
             repositoryName("ishaan04/jenkins-test")
-            tag('test')
             registryCredentials('dockerhub')
             forcePull(false)
             forceTag(false)
