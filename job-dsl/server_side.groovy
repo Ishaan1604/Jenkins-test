@@ -14,7 +14,7 @@ job("Jenkins-test") {
     steps {
         dockerBuildAndPublish {
             repositoryName("ishaan04/jenkins-test")
-            tag('$(GIT_REVISION, length=9)')
+            tag('test')
             registryCredentials('dockerhub')
             forcePull(false)
             forceTag(false)
