@@ -1,6 +1,6 @@
 job("Jenkins-test") {
     scm {
-        git("git://github.com/Ishaan1604/Jenkins-test.git") { node -> 
+        git("https://github.com/Ishaan1604/Jenkins-test.git") { node -> 
             node / gitConfigName("DSL User")
             node /gitConfigEmail("jenkins-dsl@newtech.academy")
         }
