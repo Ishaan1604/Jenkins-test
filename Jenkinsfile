@@ -19,7 +19,7 @@ node {
                         -e 'MONGO_URI=${MONGO_URI}' \
                         -e 'JWT_SECRET=${JWT_SECRET}' \
                         -e 'SENDGRID_API_KEY=${SENDGRID_API_KEY}' \
-                        node:21 sh -c 'npm install && nohup npm start'
+                        node:21 sh -c 'npm install && npm start'
                     """, returnStdout: true).trim()
             sleep(30)
         }
