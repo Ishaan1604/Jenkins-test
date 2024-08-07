@@ -9,9 +9,9 @@ node {
         }
         stage("Publish") {
             sh "docker context use desktop-linux"
-            docker.withRegistry("https://index.docker.io/v2/", "dockerhub") {
-                app.push()
-            }
+            app.push()
+            // docker.withRegistry("https://index.docker.io/v2/", "dockerhub") {
+            // }
         }
     }
     
