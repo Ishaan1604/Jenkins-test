@@ -7,6 +7,7 @@ node {
         def myContainer = docker.image("node:21")
         myContainer.pull()
         myContainer.inside('-v /tmp/.npm:/Users/IshaanAgarwal2/.npm') {
+            sh "rm -rf node_modules"
             sh "npm install"
             sh "npm start && npm testRunner"
         }
