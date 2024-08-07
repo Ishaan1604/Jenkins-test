@@ -8,13 +8,20 @@ node {
         stage("Start server") {
             def node_image = docker.image("node:21")
             node_image.pull();
-            def container = node_image.run("-v /tmp/.npm:/.npm -e 'MONGO_URI=${MONGO_URI}' -e 'JWT_SECRET=${JWT_SECRET}' -e 'SENDGRID_API_KEY=${SENDGRID_API_KEY}'") 
-            container.inside {
-                sh "npm install"
-                sh "nohup npm start &"
-                sleep(30)
-            }
-            id = container.id
+            // def container = node_image.run("-v /tmp/.npm:/.npm -e 'MONGO_URI=${MONGO_URI}' -e 'JWT_SECRET=${JWT_SECRET}' -e 'SENDGRID_API_KEY=${SENDGRID_API_KEY}'") 
+            // container.inside {
+            //     sh "npm install"
+            //     sh "nohup npm start &"
+            //     sleep(30)
+            // }
+            id = sh(script: """
+                        docker run -d -v /tmp/.npm:/.npm \
+                        -e 'MONGO_URI=${MONGO_URI}' \
+                        -e 'JWT_SECRET=${JWT_SECRET}' \
+                        -e 'SENDGRID_API_KEY=${SENDGRID_API_KEY}' \
+                        node:21 sh -c 'npm install && nohup npm start'
+                    """, returnStdout: true).trim()
+            sleep(30)
         }
         stage("Test") {
             sh "docker exec ${id} npm testRunner"
