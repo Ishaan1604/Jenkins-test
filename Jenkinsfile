@@ -7,7 +7,7 @@ node {
         def myContainer = docker.image("node:21")
         myContainer.pull()
         myContainer.inside {
-            sh "npm install"
+            sh "echo 160425 | sudo npm install"
             sh "npm start && npm testRunner"
         }
     }
