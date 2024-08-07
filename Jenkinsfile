@@ -8,7 +8,7 @@ node {
         stage("Start server") {
             def node_image = docker.image("node:21")
             node_image.pull();
-            def container = node_image.inside("-e MONGO_URI=$MONGO_URI -e JWT_SECRET=$JWT_SECRET -e SENDGRID_API_KEY=$SENDGRID_API_KEY") {
+            def container = node_image.inside("-v /tmp/.npm:/.npm -e MONGO_URI=$MONGO_URI -e JWT_SECRET=$JWT_SECRET -e SENDGRID_API_KEY=$SENDGRID_API_KEY") {
                 sh "npm install"
                 sh "npm start"
             }
