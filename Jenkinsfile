@@ -6,7 +6,7 @@ node {
     stage("Test") {
         def myContainer = docker.image("node:21")
         myContainer.pull()
-        myContainer.inside('-v /tmp/.npm:/home/node/.npm') {
+        myContainer.inside('-v /tmp/.npm:/Users/IshaanAgarwal2/.npm') {
             sh "npm install"
             sh "npm start && npm testRunner"
         }
