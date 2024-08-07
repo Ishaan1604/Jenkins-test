@@ -1,8 +1,21 @@
 node {
     withCredentials([string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI'), string(credentialsId: 'JWT_SECRET', variable: 'JWT_SECRET'), string(credentialsId: 'SENDGRID_API_KEY', variable: 'SENDGRID_API_KEY')]){
         def app;
+        def id;
         stage("Preparation") {
             checkout scm
+        }
+        stage("Start server") {
+            def node_image = docker.image("node:21")
+            node_image.pull();
+            def container = node_image.inside("-e MONGO_URI=$MONGO_URI -e JWT_SECRET=$JWT_SECRET -e SENDGRID_API_KEY=$SENDGRID_API_KEY") {
+                sh "npm install"
+                sh "npm start"
+            }
+            id = container.id
+        }
+        stage("Test") {
+            sh "docker exec ${id} npm testRunner"
         }
         stage("Build") {
             app = docker.build("ishaan04/jenkins-pipeline-test", ".")
