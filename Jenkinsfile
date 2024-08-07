@@ -5,12 +5,12 @@ node {
             checkout scm
         }
         stage("Build") {
-            docker.withRegistry("https://index.docker.io/v2/", "dockerhub") {
-                app = docker.build("ishaan04/jenkins-pipeline-test", ".")
-            }
+            app = docker.build("ishaan04/jenkins-pipeline-test", ".")
         }
         stage("Publish") {
-            app.push()
+            docker.withRegistry("https://index.docker.io/v2/", "dockerhub") {
+                app.push()
+            }
         }
     }
     
