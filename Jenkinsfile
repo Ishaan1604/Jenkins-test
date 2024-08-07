@@ -5,7 +5,7 @@ node {
             checkout scm
         }
         stage("Build") {
-            docker.withRegistry("https://index.docker.io/v2/", "dockerhub") {
+            docker.withDockerRegistry("https://index.docker.io/v2/", "dockerhub") {
                 app = docker.build("ishaan04/jenkins-pipeline-test", ".")
             }
         }
