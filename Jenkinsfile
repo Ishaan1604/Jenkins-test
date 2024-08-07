@@ -8,6 +8,7 @@ node {
             app = docker.build("ishaan04/jenkins-pipeline-test", ".")
         }
         stage("Publish") {
+            sh "docker context use desktop-linux"
             docker.withRegistry("https://index.docker.io/v2/", "dockerhub") {
                 app.push()
             }
