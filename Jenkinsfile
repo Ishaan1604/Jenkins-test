@@ -22,7 +22,7 @@ node {
                         node:21 sleep 10
                     """, returnStdout: true).trim()
             
-            sh "docker exec ${id} rm -rf node_modules && npm audit fix --force && npm install && nohup npm start"
+            sh "docker exec ${id} rm -rf node_modules npm install && nohup npm start"
             sleep(10)
         }
         stage("Test") {
