@@ -19,9 +19,11 @@ node {
                         -e 'MONGO_URI=${MONGO_URI}' \
                         -e 'JWT_SECRET=${JWT_SECRET}' \
                         -e 'SENDGRID_API_KEY=${SENDGRID_API_KEY}' \
-                        node:21 sh -c 'npm install && npm start'
+                        node:21 sleep 10
                     """, returnStdout: true).trim()
-            sleep(30)
+            
+            sh "docker exec ${id} npm install && nohup npm start"
+            sleep(10)
         }
         stage("Test") {
             sh "docker exec ${id} npm testRunner"
