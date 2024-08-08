@@ -22,7 +22,9 @@ node {
                         node:21 sleep 10
                     """, returnStdout: true).trim()
             
-            sh "docker exec ${id} rm -rf node_modules package-lock.json && npm cache clean --force && npm install && npm start && npm run testRunner"
+            sh "docker exec ${id} rm -rf node_modules package-lock.json && npm cache clean --force && npm install && npm start"
+            sleep(10)
+            sh "docker exec ${id} npm run testRunner"
         }
         // stage("Test") {
         //     sh "docker exec ${id} npm testRunner"
