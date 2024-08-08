@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nohup node server.js &",
     "genDocs": "node swagger.js",
     "testRunner": "node testRunner.js"
   },
