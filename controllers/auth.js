@@ -1,6 +1,6 @@
 const {BadRequestError, UnsupportedMediaError} = require('../errors')
 const Person = require('../models/Person')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const {StatusCodes} = require('http-status-codes');
 const { dbResponseDurationSecondsFn } = require('../utils/metrics');

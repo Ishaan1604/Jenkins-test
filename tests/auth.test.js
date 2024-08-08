@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require('../app');
 const {StatusCodes} = require('http-status-codes')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const {describe, it, expect, beforeAll, afterAll, beforeEach, afterEach} = require("@jest/globals");
 const { start, stop } = require("../server");
 
