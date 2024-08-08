@@ -22,12 +22,11 @@ node {
                         node:21 sleep 10
                     """, returnStdout: true).trim()
             
-            sh "docker exec ${id} rm -rf node_modules package-lock.json && npm cache clean --force && npm install && npm start && npm testRunner"
-            sleep(10)
+            sh "docker exec ${id} rm -rf node_modules package-lock.json && npm cache clean --force && npm install && npm start && npm run testRunner"
         }
-        stage("Test") {
-            sh "docker exec ${id} npm testRunner"
-        }
+        // stage("Test") {
+        //     sh "docker exec ${id} npm testRunner"
+        // }
         stage("Build") {
             app = docker.build("ishaan04/jenkins-pipeline-test", ".")
         }
